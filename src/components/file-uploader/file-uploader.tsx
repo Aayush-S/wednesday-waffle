@@ -14,7 +14,7 @@ type FileUploaderProps = {
 
 export default function FileUploader({
   onFileUpload,
-  maxSizeMB = 100, // Default max size 100MB
+  maxSizeMB = 50, // Default max size 100MB
   acceptedFileTypes = ["video/mp4", "video/quicktime", "video/x-msvideo"], // Default accepted video types
 }: FileUploaderProps) {
   const [file, setFile] = useState<File | null>(null);
@@ -141,7 +141,22 @@ export default function FileUploader({
               </p>
             </div>
             <label className="cursor-pointer">
-              <Button variant="outline">Choose file</Button>
+              <Button
+                variant="outline"
+                onClick={() => {
+                  const input = document.createElement("input");
+                  input.type = "file";
+                  input.accept = acceptedFileTypes.join(",");
+                  input.onchange = (e: Event) => {
+                    handleFileChange(
+                      e as unknown as React.ChangeEvent<HTMLInputElement>
+                    );
+                  };
+                  input.click();
+                }}
+              >
+                Choose file
+              </Button>
               <input
                 type="file"
                 className="hidden"

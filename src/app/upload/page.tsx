@@ -4,14 +4,18 @@ import { useState } from "react";
 import { Toaster } from "sonner";
 import { FileUploader } from "@/components/file-uploader";
 import { ModeToggle } from "@/components/mode-toggle";
+import { Button } from "@/components/ui/button";
+// import { upload } from "@vercel/blob";
 
 export default function Upload() {
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
 
   const handleFileUpload = (file: File) => {
     setUploadedFile(file);
-    // Here you would typically handle the upload to your backend
-    console.log("File uploaded:", file);
+  };
+
+  const handleUpload = async (file: File) => {
+    console.log("Uploading file:", file.name);
   };
 
   return (
@@ -38,6 +42,7 @@ export default function Upload() {
               Ready to upload:{" "}
               <span className="font-medium">{uploadedFile.name}</span>
             </p>
+            <Button onClick={() => handleUpload(uploadedFile)}>Upload</Button>
             {/* Additional upload actions would go here */}
           </div>
         )}
