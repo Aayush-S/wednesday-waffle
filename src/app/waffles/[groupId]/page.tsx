@@ -1,10 +1,11 @@
 import WaffleCard from "@/components/waffle-card/waffle-card";
 
-export default function WaffleGroup({
+export default async function WaffleGroup({
   params,
 }: {
-  params: { groupId: string };
+  params: Promise<{ groupId: string }>;
 }) {
+  const { groupId } = await params;
   return (
     <div className="container mx-auto py-8 px-4">
       <div className="flex justify-between items-center mb-8">
@@ -12,9 +13,9 @@ export default function WaffleGroup({
       </div>
 
       <div className="mt-8">
-        <h2 className="text-2xl font-semibold mb-4">Group: {params.groupId}</h2>
+        <h2 className="text-2xl font-semibold mb-4">Group: {groupId}</h2>
         <p className="text-gray-600">
-          You are currently in the waffle group: {params.groupId}
+          You are currently in the waffle group: {groupId}
         </p>
         <WaffleCard
           id="1"
